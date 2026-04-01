@@ -207,7 +207,7 @@ window.CoreGame = {
     },
     
     // Атака врага
-    attack: function() {
+    aattack: function() {
     if(!GameState.gameActive) return;
     
     const nearest = GameAI.findNearestEnemy(
@@ -219,26 +219,17 @@ window.CoreGame = {
     if(nearest) {
         const enemyId = nearest.id;
         const defeated = GameAI.damageEnemy(enemyId, GameBalance.PLAYER_DAMAGE);
-        EffectsManager.addHitEffect(nearest.x, nearest.y);  // <-- эффект удара
-        SoundManager.play('click');  // <-- звук
-        // ...
-    }
-}
+        EffectsManager.addHitEffect(nearest.x, nearest.y);
+        SoundManager.play('click');  // <-- Добавить эту строку
         
-        if(nearest) {
-            const enemyId = nearest.id;
-            const defeated = GameAI.damageEnemy(enemyId, GameBalance.PLAYER_DAMAGE);
-            EffectsManager.addHitEffect(nearest.x, nearest.y);
-            SoundManager.play('click');
-            
-            if(defeated) {
-                console.log("💀 Enemy defeated!");
-            }
-            return true;
+        if(defeated) {
+            console.log("💀 Enemy defeated!");
         }
-        
-        return false;
-    },
+        return true;
+    }
+    
+    return false;
+},
     
     // Перезапуск игры
     restart: function() {
