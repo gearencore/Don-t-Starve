@@ -130,6 +130,9 @@ window.GameState = {
     // Нанесение урона игроку
     damagePlayer: function(amount) {
         this.player.hp -= amount;
+        if(window.SoundManager) {
+            SoundManager.play('hit'); 
+        }
         if(this.player.hp <= 0) {
             this.gameActive = false;
         }
