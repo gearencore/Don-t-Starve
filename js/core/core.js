@@ -120,6 +120,14 @@ window.CoreGame = {
             GameState.nextDay();
             console.log(`🌞 Day ${GameState.day}`);
         }
+        const isNight = SoundManager.isNightTime(GameState.dayTimer, GameBalance.DAY_DURATION);
+        if(isNight && !this.wasNight) {
+            SoundManager.playNightMusic();
+            this.wasNight = true;
+        } else if(!isNight && this.wasNight) {
+            SoundManager.playDayMusic();
+            this.wasNight = false;
+        }
         
         // Спавн врагов
         GameState.spawnTimer += delta;
@@ -267,7 +275,7 @@ window.CoreGame = {
         GameRenderer.drawPlayer(GameState.player.x, GameState.player.y, GameState.player.hp);
         
         // Эффекты
-        EffectsManager.draw(GameRenderer.ctx);
+        EffectsManager.draw(ctx, GameCamera);
         
         // UI панель
         drawUIPanel(GameRenderer.ctx, 
