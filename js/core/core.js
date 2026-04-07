@@ -257,6 +257,11 @@ window.CoreGame = {
         for(let enemy of GameAI.getEnemies()) {
             GameRenderer.drawEnemy(enemy.x, enemy.y, enemy.hp, enemy.maxHp);
         }
+
+        // Добавить после отрисовки врагов
+        if(GameBalance.FOG_OF_WAR_ENABLED) {
+            GameRenderer.drawFogOfWar(GameState.player.x, GameState.player.y, GameBalance.VISION_RADIUS);
+        }    
         
         // Игрок
         GameRenderer.drawPlayer(GameState.player.x, GameState.player.y, GameState.player.hp);
@@ -287,7 +292,8 @@ window.CoreGame = {
             ctx.lineWidth = 2;
             ctx.stroke();
         }
-        
+        // Добавить перед Game Over экраном
+        drawLowHealthOverlay(ctx, GameState.player.hp);
         // Game Over
         if(!GameState.gameActive) {
             const ctx = GameRenderer.ctx;
