@@ -74,6 +74,65 @@ class CoreGame {
             this.soundManager.play('gameover');
             this.soundManager.stopMusic();
         }
-    }    
+    }
+
+    // Добавьте в класс CoreGame
+    gather() {
+        if (!this.gameState.gameActive) return false;
+    
+    // Поиск деревьев рядом
+        const trees = this.gameState.getTreesInRange(
+            this.gameState.player.x, 
+            this.gameState.player.y, 
+            this.gameBalance.GATHER_RADIUS
+        );
+    
+        if (trees.length > 0) {
+            const gain = Math.min(trees[0].wood, this.gameBalance.GATHER_WOOD_AMOUNT);
+            trees[0].wood -= gain;
+            this.gameState.addWood(gain);
+        
+        // Визуальный эффект
+            if (this.effectsManager) {
+                this.effectsManager.addPickupEffect(trees[0].x, trees[0].y);
+            }
+        
+        // Удаляем дерево если ресурс закончился
+            if (trees[0].wood <= 0) {
+                this.gameState.removeTree(trees[0]);
+            }
+        
+            this.soundManager.play('gather');
+            return true;
+        }
+    
+    // Поиск ягод рядом
+        const berries = this.gameState.getBerriesInRange(
+            this.gameState.player.x, 
+            this.gameState.player.y, 
+            this.gameBalance.GATHER_RADIUS
+        );
+    
+        if (berries.length > 0) {
+            const gain = Math.min(berries[0].count, this.gameBalance.GATHER_BERRY_AMOUNT);
+            berries[0].count -= gain;
+            this.gameState.addHunger(gain * this.gameBalance.BERRY_HUNGER_RESTORE);
+        
+        // Визуальный эффект
+            if (this.effectsManager) {
+                this.effectsManager.addPickupEffect(berries[0].x, berries[0].y);
+            }
+        
+        // Удаляем куст если ягоды кончились
+            if (berries[0].count <= 0) {
+                this.gameState.removeBerry(berries[0]);
+            }
+        
+            this.soundManager.play('gather');
+            return true;
+        }
+    
+        return false;
+    }
     
 }
