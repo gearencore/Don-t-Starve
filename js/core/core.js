@@ -186,4 +186,43 @@ class CoreGame {
     
         console.log("🔄 Game restarted!");
     }
+    // Добавьте в класс CoreGame
+    render(renderer) {
+        if (!renderer) return;
+    
+        // Рисуем фон
+        renderer.drawGround();
+    
+        // Рисуем деревья
+        for (let i = 0; i < this.gameState.world.trees.length; i++) {
+            renderer.drawTree(this.gameState.world.trees[i].x, this.gameState.world.trees[i].y);
+        }
+    
+        // Рисуем ягоды
+        for (let i = 0; i < this.gameState.world.berries.length; i++) {
+            renderer.drawBerry(this.gameState.world.berries[i].x, this.gameState.world.berries[i].y, this.gameState.world.berries[i].count);
+        }
+    
+        // Рисуем врагов
+        for (let i = 0; i < this.gameState.enemies.length; i++) {
+            const e = this.gameState.enemies[i];
+            renderer.drawEnemy(e.x, e.y, e.hp, e.maxHp, e.type);
+        }
+    
+        // Рисуем игрока
+        renderer.drawPlayer(this.gameState.player.x, this.gameState.player.y, this.gameState.player.hp);
+    
+        // Рисуем визуальные эффекты
+        if (this.effectsManager && renderer.camera) {
+            this.effectsManager.draw(renderer.ctx, renderer.camera);
+        }
+    
+        // Рисуем UI
+        renderer.drawUI();
+    
+        // Рисуем экран Game Over если нужно
+        if (!this.gameState.gameActive) {
+            renderer.drawGameOver();
+        }
+    }
 }
