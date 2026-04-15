@@ -201,3 +201,4 @@ class GameState {
         if (index > -1) this.world.berries.splice(index, 1);
     }
 }
+window.gameState = new GameState();
