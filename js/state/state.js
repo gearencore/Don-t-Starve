@@ -10,11 +10,11 @@ class GameState {
             this.day = 1;
             this.dayTimer = 0;
             this.spawnTimer = 0;
-        }
+    }
         
-        init() {
-            this.generateWorld();
-            this.reset();
+    init() {
+        this.generateWorld();
+        this.reset();
     }
     
     clampCoord(value, margin = 50) {
@@ -181,14 +181,12 @@ class GameState {
     
     getTreesInRange(x, y, radius) {
         return this.world.trees.filter(tree => 
-            Math.hypot(tree.x - x, tree.y - y) < radius && tree.wood > 0
-    );
+            Math.hypot(tree.x - x, tree.y - y) < radius && tree.wood > 0);
     }
     
     getBerriesInRange(x, y, radius) {
         return this.world.berries.filter(berry => 
-            Math.hypot(berry.x - x, berry.y - y) < radius && berry.count > 0
-    );
+            Math.hypot(berry.x - x, berry.y - y) < radius && berry.count > 0);
     }
     
     removeTree(tree) {
@@ -218,6 +216,6 @@ class GameState {
             default: return {};
         }
     }
-};
+}
 
 console.log("📊 Game State ready");
