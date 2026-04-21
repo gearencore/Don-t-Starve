@@ -195,7 +195,7 @@ class GameRenderer {
         // Древесина
         this.ctx.font = "22px monospace";
         this.ctx.fillStyle = "#ffde9c";
-        this.ctx.fillText("🪵", 210, 35);
+        this.ctx.fillText("🌲", 210, 35); 
         this.ctx.font = "bold 18px monospace";
         this.ctx.fillText(window.gameState.player.wood, 235, 35);
         
