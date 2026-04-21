@@ -3,12 +3,12 @@ class SaveSystem {
     constructor(gameState, coreGame) {
         this.gameState = gameState;
         this.coreGame = coreGame;
-    }
+    };
 
     showMsg(msg) {
         if (this.coreGame.showNotification) this.coreGame.showNotification(msg);
         else console.log(msg);
-    }
+    };
     save() {
       const data = {
           wood: this.gameState.player.wood,
@@ -19,7 +19,7 @@ class SaveSystem {
       };
       localStorage.setItem('gameSave', JSON.stringify(data));
       this.showMsg("💾 Game Saved!");
-    }
+    };
     load() {
       const raw = localStorage.getItem('gameSave');
       if (!raw) { 
