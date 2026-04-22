@@ -28,33 +28,18 @@ window.addEventListener('DOMContentLoaded', () => {
         camera
     );
 
-class MiniMap {
-    constructor(coreGame, renderer) {
-        this.coreGame = coreGame;
-        this.renderer = renderer;
-        this.width = 150;
-        this.height = 150;
-        this.x = 10;
-        this.y = 10;
-    }
-    
-    draw(ctx) {
-        // Базовая отрисовка мини-карты
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        
-        ctx.strokeStyle = 'white';
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
-        
-        ctx.fillStyle = 'white';
-        ctx.font = '12px Arial';
-        ctx.fillText('MiniMap', this.x + 10, this.y + 20);
-    }
-    
-    update() {
-        // Обновление мини-карты
-    }
-}
+// Создаем мини-карту
+    const minimap = new MiniMap(coreGame, camera);
+    coreGame.minimap = minimap;
+
+    // В функции animate, после отрисовки всех систем, добавить:
+    if (coreGame.minimap) coreGame.minimap.draw(renderer.ctx);
+
+    // ДОБАВИТЬ СИСТЕМЫ
+    coreGame.showNotification = (msg) => {
+    coreGame.notificationMsg = msg;
+    coreGame.notifTimer = 2;
+    };
     
     const visualEffects = new VisualEffects();
     const dayNight = new DayNightSystem();
