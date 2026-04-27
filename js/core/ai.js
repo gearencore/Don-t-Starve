@@ -119,17 +119,33 @@ class GameAI {
         return { x: 0, y: 0 };
     }
     
-    wanderBehavior(enemy, delta) {
-        enemy.behavior.wanderTimer += delta;
-        if (enemy.behavior.wanderTimer > 3) {
-            enemy.behavior.wanderTimer = 0;
-            enemy.behavior.wanderAngle += (Math.random() - 0.5) * Math.PI;
+    wanderBehavior: function(enemy, delta, playerX, playerY) {
+    const distToPlayer = Math.hypot(enemy.x - playerX, enemy.y - playerY);
+    
+    // Если игрок близко - убегаем
+    if(distToPlayer < 150) {
+        const dx = enemy.x - playerX;
+        const dy = enemy.y - playerY;
+        const dist = Math.hypot(dx, dy);
+        if(dist > 0.01) {
+            return {
+                x: (dx / dist) * GameBalance.ENEMY_SPEED * 0.8,
+                y: (dy / dist) * GameBalance.ENEMY_SPEED * 0.8
+            };
         }
-        return {
-            x: Math.cos(enemy.behavior.wanderAngle) * this.gameBalance.ENEMY_SPEED * 0.4,
-            y: Math.sin(enemy.behavior.wanderAngle) * this.gameBalance.ENEMY_SPEED * 0.4
-        };
     }
+    
+    // Иначе случайное блуждание
+    enemy.behavior.wanderTimer += delta;
+    if(enemy.behavior.wanderTimer > 3) {
+        enemy.behavior.wanderTimer = 0;
+        enemy.behavior.wanderAngle += (Math.random() - 0.5) * Math.PI;
+    }
+    return {
+        x: Math.cos(enemy.behavior.wanderAngle) * GameBalance.ENEMY_SPEED * 0.4,
+        y: Math.sin(enemy.behavior.wanderAngle) * GameBalance.ENEMY_SPEED * 0.4
+    };
+}
 
     findNearestEnemy(playerX, playerY, range) {
         let nearest = null;
