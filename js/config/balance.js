@@ -18,12 +18,15 @@ class GameBalance {
         this.GATHER_WOOD_AMOUNT = 6;
         this.GATHER_BERRY_AMOUNT = 4;
         this.BERRY_HUNGER_RESTORE = 6;
+        this.GATHER_STONE_AMOUNT = 4;
+        this.STONE_SPAWN_COUNT = 8;
         
         // Мир
         this.HUNGER_DRAIN_RATE = 0.18;
-        this.DAY_DURATION = 30;
+        this.DAY_DURATION = 60;
         this.ENEMY_SPAWN_DELAY = 12;
         this.MAX_ENEMIES = 12;
+        
     }
 }
 
