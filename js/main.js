@@ -43,7 +43,6 @@ window.addEventListener('DOMContentLoaded', () => {
     
     const visualEffects = new VisualEffects();
     const dayNight = new DayNightSystem();
-    dayNight.initStars();
     const experience = new ExperienceSystem(window.gameState);
     const achievements = new AchievementSystem(window.gameState);
     const crafting = new CraftingSystem(window.gameState, coreGame);
