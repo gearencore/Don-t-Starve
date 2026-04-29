@@ -25,7 +25,7 @@ class MiniMap {
             if (mapX >= this.x && mapX <= this.x + this.width &&
                 mapY >= this.y && mapY <= this.y + this.height) {
                 ctx.fillRect(mapX, mapY, 2, 2);
-            }
+                }
         }
         
         // Рисуем ягоды
